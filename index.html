@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="is">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Markorð: 161 - 170 algengustu í íslenskum námsbókum</title>
+    <style>
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            text-align: center; 
+            background-color: #f0f4f8; 
+            margin: 0;
+            padding: 2vh 5vw; 
+            min-height: 95vh; 
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-sizing: border-box;
+        }
+        .container { 
+            width: 100%; 
+            max-width: 1200px; 
+            background: white; 
+            padding: 30px 40px; 
+            border-radius: 20px; 
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1); 
+            max-height: 100%;
+            overflow-y: auto;
+        }
+        h1 {
+            color: #1a73e8;
+            font-size: 2em;
+            margin-top: 0;
+            margin-bottom: 15px;
+        }
+        /* Framvindustika */
+        .progress-container {
+            width: 100%;
+            background-color: #e0e0e0;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            height: 20px;
+        }
+        #progress-bar {
+            height: 100%;
+            width: 0%;
+            background-color: #34a853;
+            border-radius: 10px;
+            transition: width 0.5s ease-in-out;
+        }
+        
+        #counter { font-size: 1.2em; color: #666; font-weight: bold; margin-bottom: 10px; }
+
+        .lang-selector {
+            margin-bottom: 20px;
+            background: #fff3e0;
+            padding: 10px 15px;
+            border-radius: 10px;
+            display: inline-block;
+            border: 1px solid #ffcc80;
+        }
+
+        .lang-selector select {
+            padding: 8px;
+            font-size: 1.1em;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            cursor: pointer;
+            margin-left: 10px;
+            max-width: 300px;
+        }
+        
+        #target { 
+            font-size: 4em; 
+            margin: 10px 0; 
+            color: #222; 
+            font-weight: bold;
+        }
+        
+        #is-explanation {
+            font-size: 1.2em;
+            color: #333;
+            background-color: #e8f0fe;
+            padding: 15px 25px;
+            border-radius: 10px;
+            display: inline-block;
+            margin-bottom: 20px;
+            max-width: 80%;
+            line-height: 1.6;
+            text-align: left;
+        }
+
+        .btn { 
+            padding: 12px 25px; 
+            font-size: 1.2em; 
+            margin: 5px; 
+            cursor: pointer; 
+            border: none; 
+            border-radius: 8px; 
+            background-color: #1a73e8; 
+            color: white; 
+            transition: 0.3s; 
+            font-weight: bold;
+        }
+        .btn:hover:not(:disabled) { background-color: #1557b0; transform: scale(1.02); }
+        .recording { background-color: #d93025; animation: pulse 1.5s infinite; }
+        .recording:hover { background-color: #b3140b; }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        #media-box { 
+            font-size: 1.1em; 
+            color: #444; 
+            text-align: left; 
+            background: #f8fbff; 
+            padding: 15px 30px; 
+            border-radius: 12px; 
+            line-height: 1.6; 
+            border-left: 6px solid #1a73e8; 
+            margin-top: 15px;
+            display: inline-block;
+            min-width: 70%;
+        }
+        #spoken {
+            margin-top: 15px; 
+            font-size: 1.4em;
+            font-style: italic; 
+            color: #555;
+        }
+        #result {
+            font-weight: bold; 
+            font-size: 1.8em; 
+            margin-top: 5px; 
+            color: #1a73e8;
+        }
+        .nav-btns { margin-top: 20px; }
+        
+        /* Fyrir nafnainnslátt */
+        #studentName {
+            font-size: 1.5em;
+            padding: 10px;
+            margin: 20px 0;
+            width: 80%;
+            max-width: 400px;
+            border: 2px solid #1a73e8;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .feedback-note {
+            margin-top: 40px;
+            font-size: 0.95em;
+            color: #555;
+            padding-top: 15px;
+            border-top: 1px solid #ddd;
+        }
+        .feedback-note a {
+            color: #1a73e8;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .feedback-note a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container" id="app">
+    <h1>Markorð: 161 - 170 algengustu í íslenskum námsbókum</h1>
+    
+    <div class="progress-container">
+        <div id="progress-bar"></div>
+    </div>
+
+    <div class="lang-selector">
+        <label for="languageSelect"><b>🌍 Tungumál:</b></label>
+        <select id="languageSelect" onchange="updateUI()">
+            <option value="" selected disabled>Veldu tungumál...</option>
+            <option value="ar">Arabíska – العربية</option>
+            <option value="be">Belgíska (Flæmska) – Vlaams</option>
+            <option value="da">Danska – Dansk</option>
+            <option value="en">Enska – English</option>
+            <option value="tl">Filippseyska – Tagalog</option>
+            <option value="fi">Finnska – Suomi</option>
+            <option value="fr">Franska – Français</option>
+            <option value="fo">Færeyska – Føroyskt</option>
+            <option value="kl">Grænlenska – Kalaallisut</option>
+            <option value="nl">Hollenska – Nederlands</option>
+            <option value="it">Ítalska – Italiano</option>
+            <option value="ja">Japanska – 日本語</option>
+            <option value="zh">Kínverska – 中文</option>
+            <option value="ku">Kúrdíska – Kurdî</option>
+            <option value="lv">Lettneska – Latviešu</option>
+            <option value="lt">Litháíska – Lietuvių</option>
+            <option value="no">Norska – Norsk</option>
+            <option value="fa">Persneska – فارسی</option>
+            <option value="pt">Portúgalska – Português</option>
+            <option value="pl">Pólska – Polski</option>
+            <option value="ro">Rúmenska – Română</option>
+            <option value="ru">Rússneska – Русский</option>
+            <option value="es">Spænska – Español</option>
+            <option value="sv">Sænska – Svenska</option>
+            <option value="th">Tælenska – ภาษาไทย</option>
+            <option value="de">Þýska – Deutsch</option>
+            <option value="uk">Úkraínska – Українська</option>
+            <option value="vi">Víetnamska – Tiếng Việt</option>
+        </select>
+    </div>
+
+    <div id="counter"></div>
+    
+    <div id="target"></div>
+    <div id="is-explanation"></div>
+    <br>
+    <button id="record-btn" class="btn" onclick="toggleRecord()">🎤 Tala</button>
+    
+    <div id="spoken"></div>
+    <div id="result"></div>
+
+    <div id="media-box"><i>Veldu tungumál úr listanum að ofan til að sjá þýðingu.</i></div>
+
+    <div class="nav-btns">
+        <button class="btn" style="background-color: #5f6368;" onclick="prevExercise()">⬅️ Fyrri</button>
+        <button class="btn" style="background-color: #5f6368;" onclick="nextExercise()">Næsta ➡️</button>
+    </div>
+
+    <div class="feedback-note">
+        Vinsamlegast sendið ábendingar á <a href="mailto:dgu@fb.is">dgu@fb.is</a>
+    </div>
+</div>
+
+<script>
+const exerciseData = [
+    { 
+        text: "eitthvað", 
+        is_exp: "<b>Útskýring:</b> (Óákveðið fornafn) Einhver hlutur eða eitthvað óskilgreint (hvorugkyn).<br><b>Andheiti:</b> ekkert.<br><br><b>Dæmi 1:</b> Ég þarf að segja þér <b>eitthvað</b>.<br><b>Dæmi 2:</b> Vantar þig <b>eitthvað</b> úr búðinni?",
+        translations: {
+            "en": "<b>Explanation:</b> (Indefinite pronoun) A thing that is unspecified or unknown.<br><b>Antonym:</b> ekkert (nothing).<br><b>Example 1:</b> I need to tell you <b>something</b>.<br><b>Example 2:</b> Do you need <b>anything</b> from the store?",
+            "pl": "<b>Wyjaśnienie:</b> (Zaimek nieokreślony) Coś nieokreślonego.<br><b>Antonim:</b> ekkert (nic).<br><b>Przykład:</b> Muszę ci <b>coś</b> powiedzieć.",
+            "da": "<b>Forklaring:</b> (Ubestemt stedord) En uspecificeret ting.<br><b>Antonym:</b> ekkert (intet).<br><b>Eksempel:</b> Jeg har <b>noget</b> at fortælle dig.",
+            "es": "<b>Explicación:</b> (Pronombre indefinido) Una cosa no especificada.<br><b>Antónimo:</b> ekkert (nada).<br><b>Ejemplo:</b> Necesito decirte <b>algo</b>.",
+            "ar": "<div dir='rtl'><b>الشرح:</b> شيء ما غير محدد.<br><b>مثال:</b> أحتاج أن أخبرك <b>بشيء ما</b>.</div>"
+        }
+    },
+    { 
+        text: "þig", 
+        is_exp: "<b>Útskýring:</b> (Persónufornafn) Þolfall af orðinu 'þú'. Notað sem þolandi í setningu.<br><br><b>Dæmi 1:</b> Ég elska <b>þig</b>.<br><b>Dæmi 2:</b> Vantar <b>þig</b> hjálp?",
+        translations: {
+            "en": "<b>Explanation:</b> (Personal pronoun) Accusative case of 'you' (singular).<br><b>Example 1:</b> I love <b>you</b>.<br><b>Example 2:</b> Do <b>you</b> need help?",
+            "pl": "<b>Wyjaśnienie:</b> (Zaimek osobowy) Biernik od 'ty' (Ciebie, Cię).<br><b>Przykład:</b> Kocham <b>cię</b>.",
+            "da": "<b>Forklaring:</b> (Personligt stedord) Akkusativ af 'du' (dig).<br><b>Eksempel:</b> Jeg elsker <b>dig</b>.",
+            "es": "<b>Explicación:</b> (Pronombre personal) Caso acusativo de 'tú' (te, a ti).<br><b>Ejemplo:</b> <b>Te</b> quiero.",
+            "ar": "<div dir='rtl'><b>الشرح:</b> ضمير مفعول به للمخاطب المفرد (ك).<br><b>مثال:</b> أنا أحبـ<b>ـك</b>.</div>"
+        }
+    },
+    { 
+        text: "rétt", 
+        is_exp: "<b>Útskýring:</b> (Lýsingarorð / Atviksorð) Eitthvað sem er réttlátt, satt eða beint. Einnig notað um eitthvað sem gerist nákvæmlega á ákveðnum tíma.<br><b>Andheiti:</b> rangt.<br><br><b>Dæmi 1:</b> Þetta er <b>rétt</b> svar.<br><b>Dæmi 2:</b> Hann kom <b>rétt</b> áðan.",
+        translations: {
+            "en": "<b>Explanation:</b> (Adjective / Adverb) Correct, true, or straight. Also means 'just' or 'right now'.<br><b>Antonym:</b> rangt (wrong).<br><b>Example 1:</b> That is the <b>correct</b> answer.<br><b>Example 2:</b> He arrived <b>just</b> now.",
+            "pl": "<b>Wyjaśnienie:</b> (Przymiotnik / Przysłówek) Prawidłowy, właściwy, lub 'właśnie teraz'.<br><b>Antonim:</b> rangt (źle).<br><b>Przykład:</b> To jest <b>prawidłowa</b> odpowiedź.",
+            "da": "<b>Forklaring:</b> (Tillægsord / Biord) Rigtigt, sandt, eller 'lige'.<br><b>Antonym:</b> rangt (forkert).<br><b>Eksempel:</b> Det er det <b>rigtige</b> svar.",
+            "es": "<b>Explicación:</b> (Adjetivo / Adverbio) Correcto, cierto, o 'justo ahora'.<br><b>Antónimo:</b> rangt (equivocado).<br><b>Ejemplo:</b> Esa es la respuesta <b>correcta</b>.",
+            "ar": "<div dir='rtl'><b>الشرح:</b> صحيح، حق، أو 'بالضبط / الآن'.<br><b>مثال:</b> هذا هو الجواب <b>الصحيح</b>.</div>"
+        }
+    },
+    { 
+        text: "einu", 
+        is_exp: "<b>Útskýring:</b> (Töluorð / Fornafn) Þágufall af 'einn' eða 'eitt'. Oft notað í orðasamböndum.<br><br><b>Dæmi 1:</b> Við gerum þetta í <b>einu</b>.<br><b>Dæmi 2:</b> Ég skal segja þér af <b>einu</b>.",
+        translations: {
+            "en": "<b>Explanation:</b> (Numeral / Pronoun) Dative case of 'one'. Often used in phrases like 'í einu' (at once).<br><b>Example 1:</b> We do this at <b>once</b>.<br><b>Example 2:</b> Let me tell you <b>one</b> thing.",
+            "pl": "<b>Wyjaśnienie:</b> (Liczebnik) Celownik od 'jeden'. Często w zwrocie 'í einu' (naraz).<br><b>Przykład:</b> Robimy to <b>naraz</b> (za jednym razem).",
+            "da": "<b>Forklaring:</b> (Talord) Dativ af 'en/et'. Ofte i udtryk som 'í einu' (ad gangen).<br><b>Eksempel:</b> Vi gør dette ad <b>gangen</b>.",
+            "es": "<b>Explicación:</b> (Numeral) Caso dativo de 'uno'. Frecuente en 'í einu' (a la vez).<br><b>Ejemplo:</b> Hacemos esto a la <b>vez</b>.",
+            "ar": "<div dir='rtl'><b>الشرح:</b> (رقم) حالة الجر من 'واحد'. يستخدم في تعبير 'í einu' (دفعة واحدة).<br><b>مثال:</b> نقوم بهذا <b>دفعة واحدة</b>.</div>"
+        }
+    },
+    { 
+        text: "öllum", 
+        is_exp: "<b>Útskýring:</b> (Óákveðið fornafn) Þágufall fleirtölu af 'allur' (allar/öll). Vísar til heildarinnar, allra án undantekninga.<br><b>Andheiti:</b> engum.<br><br><b>Dæmi 1:</b> Ég sagði <b>öllum</b> frá þessu.<br><b>Dæmi 2:</b> Gengur vel hjá <b>öllum</b>?",
+        translations: {
+            "en": "<b>Explanation:</b> (Indefinite pronoun) Dative plural of 'all/everyone'. Refers to the entirety.<br><b>Antonym:</b> engum (no one).<br><b>Example 1:</b> I told <b>everyone</b> about this.<br><b>Example 2:</b> Is <b>everyone</b> doing well?",
+            "pl": "<b>Wyjaśnienie:</b> (Zaimek nieokreślony) Celownik liczby mnogiej od 'wszyscy'.<br><b>Antonim:</b> engum (nikomu).<br><b>Przykład:</b> Powiedziałem <b>wszystkim</b> o tym.",
+            "da": "<b>Forklaring:</b> (Ubestemt stedord) Dativ flertal af 'alle'.<br><b>Antonym:</b> engum (ingen).<br><b>Eksempel:</b> Jeg fortalte <b>alle</b> om det.",
+            "es": "<b>Explicación:</b> (Pronombre indefinido) Dativo plural de 'todos'.<br><b>Antónimo:</b> engum (nadie).<br><b>Ejemplo:</b> Le conté a <b>todos</b> sobre esto.",
+            "ar": "<div dir='rtl'><b>الشرح:</b> حالة الجر للجمع من كلمة 'الجميع/كل'.<br><b>مثال:</b> لقد أخبرت <b>الجميع</b> بهذا.</div>"
+        }
+    },
+    { 
+        text: "hins", 
+        is_exp: "<b>Útskýring:</b> (Ábendingarfornafn) Eignarfall af 'hinn/hið'. Oftast notað í orðasambandinu 'hins vegar' (á hinn bóginn eða 'en').<br><br><b>Dæmi 1:</b> <b>Hins</b> vegar er þetta alveg satt.<br><b>Dæmi 2:</b> Hann fór yfir til <b>hins</b> mannsins.",
+        translations: {
+            "en": "<b>Explanation:</b> (Demonstrative pronoun) Genitive of 'the other'. Most commonly used in the phrase 'hins vegar' (however / on the other hand).<br><b>Example 1:</b> <b>However</b>, this is completely true.<br><b>Example 2:</b> He went over to <b>the other</b> man.",
+            "pl": "<b>Wyjaśnienie:</b> (Zaimek wskazujący) Dopełniacz od 'tamten/drugi'. Najczęściej w zwrocie 'hins vegar' (jednakże).<br><b>Przykład:</b> <b>Jednakże</b>, to jest całkowita prawda.",
+            "da": "<b>Forklaring:</b> (Påpegende stedord) Ejefald af 'den anden'. Ofte brugt i 'hins vegar' (imidlertid / på den anden side).<br><b>Eksempel:</b> På den anden side (<b>hins</b> vegar) er dette helt sandt.",
+            "es": "<b>Explicación:</b> (Pronombre demostrativo) Genitivo de 'el otro'. Frecuente en 'hins vegar' (sin embargo).<br><b>Ejemplo:</b> <b>Sin embargo</b>, esto es completamente cierto.",
+            "ar": "<div dir='rtl'><b>الشرح:</b> حالة الإضافة لـ 'الآخر'. تُستخدم غالباً في 'hins vegar' (ومع ذلك).<br><b>مثال:</b> <b>ومع ذلك</b>، هذا صحيح تماماً.</div>"
+        }
+    },
+    { 
+        text: "dag", 
+        is_exp: "<b>Útskýring:</b> (Nafnorð) Þolfall af 'dagur'. Tíminn þegar það er bjart, eða 24 stunda tímabil. 'Í dag' þýðir núverandi dagur.<br><b>Andheiti:</b> nótt.<br><br><b>Dæmi 1:</b> Hvað ætlarðu að gera í <b>dag</b>?<br><b>Dæmi 2:</b> Eigðu góðan <b>dag</b>!",
+        translations: {
+            "en": "<b>Explanation:</b> (Noun) Accusative of 'day'. 'Í dag' means today.<br><b>Antonym:</b> nótt (night).<br><b>Example 1:</b> What are you going to do <b>today</b>?<br><b>Example 2:</b> Have a good <b>day</b>!",
+            "pl": "<b>Wyjaśnienie:</b> (Rzeczownik) Biernik od 'dzień'. 'Í dag' oznacza 'dzisiaj'.<br><b>Antonim:</b> nótt (noc).<br><b>Przykład:</b> Co zamierzasz robić <b>dzisiaj</b>?",
+            "da": "<b>Forklaring:</b> (Navneord) Akkusativ af 'dag'. 'Í dag' betyder i dag.<br><b>Antonym:</b> nótt (nat).<br><b>Eksempel:</b> Hvad skal du lave i <b>dag</b>?",
+            "es": "<b>Explicación:</b> (Sustantivo) Acusativo de 'día'. 'Í dag' significa hoy.<br><b>Antónimo:</b> nótt (noche).<br><b>Ejemplo:</b> ¿Qué vas a hacer <b>hoy</b>?",
+            "ar": "<div dir='rtl'><b>الشرح:</b> (اسم) يوم. 'Í dag' تعني اليوم.<br><b>مضاد:</b> nótt (ليل).<br><b>مثال:</b> ماذا ستفعل <b>اليوم</b>؟</div>"
+        }
+    },
+    { 
+        text: "hluti", 
+        is_exp: "<b>Útskýring:</b> (Nafnorð) Eitthvað sem er partur af heild. Getur líka þýtt veraldlegir hlutir (fleirtala af 'hlutur').<br><b>Samheiti:</b> partur.<br><br><b>Dæmi 1:</b> Hann er mikilvægur <b>hluti</b> af liðinu.<br><b>Dæmi 2:</b> Hún á marga <b>hluti</b>.",
+        translations: {
+            "en": "<b>Explanation:</b> (Noun) A part of a whole, or the plural of 'thing' (objects).<br><b>Synonym:</b> partur (part).<br><b>Example 1:</b> He is an important <b>part</b> of the team.<br><b>Example 2:</b> She owns many <b>things</b>.",
+            "pl": "<b>Wyjaśnienie:</b> (Rzeczownik) Część całości lub liczba mnoga od 'rzecz'.<br><b>Przykład:</b> On jest ważną <b>częścią</b> drużyny.",
+            "da": "<b>Forklaring:</b> (Navneord) En del af en helhed, eller flertal af 'ting'.<br><b>Eksempel:</b> Han er en vigtig <b>del</b> af holdet.",
+            "es": "<b>Explicación:</b> (Sustantivo) Una parte de un todo, o plural de 'cosa' (objetos).<br><b>Ejemplo:</b> Él es una <b>parte</b> importante del equipo.",
+            "ar": "<div dir='rtl'><b>الشرح:</b> (اسم) جزء من كل، أو أشياء (جمع شيء).<br><b>مثال:</b> إنه <b>جزء</b> مهم من الفريق.</div>"
+        }
+    },
+    { 
+        text: "konar", 
+        is_exp: "<b>Útskýring:</b> (Nafnorð) Eignarfall af 'kyn' eða notað í orðasamböndum til að lýsa tegund af einhverju (hvers konar, alls konar).<br><b>Samheiti:</b> tegundar.<br><br><b>Dæmi 1:</b> Hvers <b>konar</b> bíll er þetta?<br><b>Dæmi 2:</b> Ég hef áhuga á alls <b>konar</b> tónlist.",
+        translations: {
+            "en": "<b>Explanation:</b> (Noun) Genitive of 'kind/sort'. Used in phrases like 'hvers konar' (what kind of) or 'alls konar' (all kinds of).<br><b>Example 1:</b> What <b>kind</b> of car is this?<br><b>Example 2:</b> I am interested in all <b>kinds</b> of music.",
+            "pl": "<b>Wyjaśnienie:</b> (Rzeczownik) Rodzaj/typ. Używane w 'hvers konar' (jakiego rodzaju) lub 'alls konar' (różnego rodzaju).<br><b>Przykład:</b> Jakiego <b>rodzaju</b> to jest samochód?",
+            "da": "<b>Forklaring:</b> (Navneord) Slags/art. Bruges i fx 'hvers konar' (hvilken slags) eller 'alls konar' (al slags).<br><b>Eksempel:</b> Hvilken <b>slags</b> bil er dette?",
+            "es": "<b>Explicación:</b> (Sustantivo) Tipo/clase. Usado en 'hvers konar' (qué tipo de) o 'alls konar' (todo tipo de).<br><b>Ejemplo:</b> ¿Qué <b>tipo</b> de coche es este?",
+            "ar": "<div dir='rtl'><b>الشرح:</b> (اسم) نوع أو صنف. تُستخدم في 'hvers konar' (أي نوع من).<br><b>مثال:</b> أي <b>نوع</b> من السيارات هذه؟</div>"
+        }
+    },
+    { 
+        text: "aðeins", 
+        is_exp: "<b>Útskýring:</b> (Atviksorð) Eitthvað sem er lítið eða fátt. Einnig notað sem 'bara' eða 'eingöngu'.<br><b>Samheiti:</b> bara, eingöngu.<br><br><b>Dæmi 1:</b> Hún var <b>aðeins</b> fimm ára.<br><b>Dæmi 2:</b> Geturðu beðið <b>aðeins</b> lengur?<br><b>Dæmi 3:</b> Það eru <b>aðeins</b> tveir eftir.",
+        translations: {
+            "en": "<b>Explanation:</b> (Adverb) Means 'only', 'just', or 'slightly/a little bit'.<br><b>Synonym:</b> bara (only).<br><b>Example 1:</b> She was <b>only</b> five years old.<br><b>Example 2:</b> Can you wait <b>a little</b> longer?",
+            "pl": "<b>Wyjaśnienie:</b> (Przysłówek) Oznacza 'tylko' lub 'trochę'.<br><b>Przykład:</b> Ona miała <b>tylko</b> pięć lat.",
+            "da": "<b>Forklaring:</b> (Biord) Betyder 'kun' eller 'lidt'.<br><b>Eksempel:</b> Hun var <b>kun</b> fem år gammel.",
+            "es": "<b>Explicación:</b> (Adverbio) Significa 'sólo' o 'un poco'.<br><b>Ejemplo:</b> Ella tenía <b>sólo</b> cinco años.",
+            "ar": "<div dir='rtl'><b>الشرح:</b> (ظرف) تعني 'فقط' أو 'قليلاً'.<br><b>مثال:</b> كانت تبلغ من العمر خمس سنوات <b>فقط</b>.</div>"
+        }
+    }
+];
+
+let userScores = new Array(exerciseData.length).fill(null);
+let userSpoken = new Array(exerciseData.length).fill("");
+
+let currentIndex = 0;
+let recognition;
+let isRecording = false;
+let autoAdvanceTimer = null;
+let hasDownloadedCert = false;
+
+const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+if (SpeechRecognition) {
+    recognition = new SpeechRecognition();
+    recognition.lang = 'is-IS';
+    recognition.continuous = false;
+    recognition.interimResults = false;
+    
+    recognition.onend = () => {
+        isRecording = false;
+        const btn = document.getElementById('record-btn');
+        if (btn) {
+            btn.innerText = "🎤 Tala";
+            btn.classList.remove('recording');
+        }
+        
+        const resDiv = document.getElementById('result');
+        if (resDiv && resDiv.innerText === "Hlusta...") {
+            resDiv.innerText = "";
+        }
+    };
+} else {
+    alert("Þessi vafri styður ekki talgreiningu. Notaðu Chrome eða Edge á tölvu.");
+}
+
+window.onload = () => { 
+    updateUI(); 
+};
+
+function updateProgress() {
+    let correctCount = 0;
+    for (let i = 0; i < userScores.length; i++) {
+        if (userScores[i] === 100) {
+            correctCount++;
+        }
+    }
+    const percent = (correctCount / exerciseData.length) * 100;
+    
+    const progressBar = document.getElementById('progress-bar');
+    if(progressBar) {
+        progressBar.style.width = percent + '%';
+    }
+    return correctCount;
+}
+
+function findNextUnfinished() {
+    for (let i = 0; i < userScores.length; i++) {
+        if (userScores[i] !== 100) {
+            currentIndex = i;
+            break;
+        }
+    }
+    
+    document.getElementById('app').innerHTML = `
+        <h1>Markorð: 161 - 170 algengustu í íslenskum námsbókum</h1>
+        <div class="progress-container"><div id="progress-bar"></div></div>
+        
+        <div class="lang-selector">
+            <label for="languageSelect"><b>🌍 Tungumál:</b></label>
+            <select id="languageSelect" onchange="updateUI()">
+                <option value="" selected disabled>Veldu tungumál...</option>
+                <option value="ar">Arabíska – العربية</option>
+                <option value="be">Belgíska (Flæmska) – Vlaams</option>
+                <option value="da">Danska – Dansk</option>
+                <option value="en">Enska – English</option>
+                <option value="tl">Filippseyska – Tagalog</option>
+                <option value="fi">Finnska – Suomi</option>
+                <option value="fr">Franska – Français</option>
+                <option value="fo">Færeyska – Føroyskt</option>
+                <option value="kl">Grænlenska – Kalaallisut</option>
+                <option value="nl">Hollenska – Nederlands</option>
+                <option value="it">Ítalska – Italiano</option>
+                <option value="ja">Japanska – 日本語</option>
+                <option value="zh">Kínverska – 中文</option>
+                <option value="ku">Kúrdíska – Kurdî</option>
+                <option value="lv">Lettneska – Latviešu</option>
+                <option value="lt">Litháíska – Lietuvių</option>
+                <option value="no">Norska – Norsk</option>
+                <option value="fa">Persneska – فارسی</option>
+                <option value="pt">Portúgalska – Português</option>
+                <option value="pl">Pólska – Polski</option>
+                <option value="ro">Rúmenska – Română</option>
+                <option value="ru">Rússneska – Русский</option>
+                <option value="es">Spænska – Español</option>
+                <option value="sv">Sænska – Svenska</option>
+                <option value="th">Tælenska – ภาษาไทย</option>
+                <option value="de">Þýska – Deutsch</option>
+                <option value="uk">Úkraínska – Українська</option>
+                <option value="vi">Víetnamska – Tiếng Việt</option>
+            </select>
+        </div>
+
+        <div id="counter"></div>
+        <div id="target"></div>
+        <div id="is-explanation"></div>
+        <br>
+        <button id="record-btn" class="btn" onclick="toggleRecord()">🎤 Tala</button>
+        <div id="spoken"></div>
+        <div id="result"></div>
+        <div id="media-box"></div>
+        <div class="nav-btns">
+            <button class="btn" style="background-color: #5f6368;" onclick="prevExercise()">⬅️ Fyrri</button>
+            <button class="btn" style="background-color: #5f6368;" onclick="nextExercise()">Næsta ➡️</button>
+        </div>
+        <div class="feedback-note">
+            Vinsamlegast sendið ábendingar á <a href="mailto:dgu@fb.is">dgu@fb.is</a>
+        </div>
+    `;
+    updateUI();
+}
+
+function updateUI() {
+    clearTimeout(autoAdvanceTimer); 
+    const correctCount = updateProgress();
+
+    if (currentIndex >= exerciseData.length) {
+        if (correctCount === exerciseData.length) {
+            document.getElementById('app').innerHTML = `
+                <div class="progress-container"><div id="progress-bar" style="width: 100%;"></div></div>
+                <h1 style="color: #34a853; font-size: 2.5em;">Frábært! Þú náðir 100% árangri! 🎉</h1>
+                <p style="font-size: 1.2em; color: #555;">Skrifaðu nafnið þitt hér að neðan til að sækja viðurkenningarskjalið þitt.</p>
+                <input type="text" id="studentName" placeholder="Skrifaðu nafnið þitt hér" autocomplete="off" ${hasDownloadedCert ? 'disabled' : ''}><br>
+                <button id="cert-btn" class="btn" style="background-color: ${hasDownloadedCert ? '#5f6368' : '#1a73e8'}; font-size: 1.5em; padding: 15px 30px; margin-top: 10px; cursor: ${hasDownloadedCert ? 'not-allowed' : 'pointer'}; opacity: ${hasDownloadedCert ? '0.7' : '1'};" onclick="downloadCert()" ${hasDownloadedCert ? 'disabled' : ''}>
+                    ${hasDownloadedCert ? '✅ Skjal sótt' : '🏆 Sækja viðurkenningarskjal'}
+                </button>
+                <br><br>
+                <button class="btn" style="background-color: #5f6368;" onclick="location.reload()">🔄 Byrja nýja umferð</button>
+                <div class="feedback-note">
+                    Vinsamlegast sendið ábendingar á <a href="mailto:dgu@fb.is">dgu@fb.is</a>
+                </div>
+            `;
+        } else {
+            document.getElementById('app').innerHTML = `
+                <div class="progress-container"><div id="progress-bar" style="width: ${(correctCount/exerciseData.length)*100}%;"></div></div>
+                <h1 style="color: #fbbc05; font-size: 2em;">Þú ert næstum því búin(n)!</h1>
+                <p style="font-size: 1.2em;">Þú hefur klárað ${correctCount} af${exerciseData.length} orðum með 100% árangri.</p>
+                <p style="font-size: 1.1em; color: #555;">Farðu til baka og reyndu aftur við þau orð sem vantaði upp á til að fá skjalið.</p>
+                <button class="btn" style="background-color: #fbbc05; color: #000;" onclick="findNextUnfinished()">➡️ Fara á orð sem vantar</button>
+                <div class="feedback-note">
+                    Vinsamlegast sendið ábendingar á <a href="mailto:dgu@fb.is">dgu@fb.is</a>
+                </div>
+            `;
+        }
+        return;
+    }
+
+    const curr = exerciseData[currentIndex];
+    
+    const langSelect = document.getElementById('languageSelect');
+    const selectedLang = langSelect ? langSelect.value : '';
+
+    document.getElementById('target').innerHTML = curr.text;
+    document.getElementById('is-explanation').innerHTML = curr.is_exp;
+    document.getElementById('counter').innerText = `Orð ${currentIndex + 1} af${exerciseData.length}`;
+    
+    if (!selectedLang) {
+        document.getElementById('media-box').innerHTML = "<i>Veldu tungumál úr listanum að ofan til að sjá þýðingu.</i>";
+    } else {
+        // Notum ensku sem varalið ef valið tungumál hefur ekki verið þýtt sérstaklega fyrir þetta orð
+        document.getElementById('media-box').innerHTML = curr.translations[selectedLang] || (curr.translations['en'] + "<br><br><i>(Ath: Þýðingu á þessu tungumáli vantar, sýni ensku)</i>");
+    }
+
+    const savedScore = userScores[currentIndex];
+    const savedText = userSpoken[currentIndex];
+
+    if (savedScore !== null) {
+        document.getElementById('result').innerText = `Einkunn: ${savedScore}%`;
+        document.getElementById('spoken').innerText = `Þú sagðir: "${savedText}"`;
+    } else {
+        document.getElementById('result').innerText = "";
+        document.getElementById('spoken').innerText = "";
+    }
+}
+
+function nextExercise() {
+    currentIndex++;
+    updateUI();
+}
+
+function prevExercise() {
+    if (currentIndex > 0) {
+        currentIndex--;
+        updateUI();
+    }
+}
+
+function toggleRecord() {
+    if (!recognition) return;
+
+    const btn = document.getElementById('record-btn');
+    if (isRecording) {
+        recognition.stop();
+    } else {
+        try {
+            recognition.start();
+            isRecording = true;
+            btn.innerText = "🛑 Hlusta...";
+            btn.classList.add('recording');
+            document.getElementById('result').innerText = "Hlusta...";
+            document.getElementById('spoken').innerText = "";
+        } catch(e) {
+            console.log("Villa í upptöku: " + e);
+        }
+    }
+}
+
+if (recognition) {
+    recognition.onresult = (event) => {
+        let spoken = event.results[0][0].transcript;
+        spoken = spoken.trim().toLowerCase(); 
+
+        document.getElementById('spoken').innerText = `Þú sagðir: "${spoken}"`;
+        
+        const targetWord = exerciseData[currentIndex].text.toLowerCase();
+        
+        let score = (spoken === targetWord) ? 100 : 0;
+        
+        if (spoken.replace(/[.,/#!$%^&*;:{}=\-_`~()]/g,"").trim() === targetWord) {
+            score = 100;
+        }
+        
+        document.getElementById('result').innerText = `Einkunn: ${score}%`;
+
+        userScores[currentIndex] = score;
+        userSpoken[currentIndex] = spoken;
+        
+        updateProgress();
+
+        if (score === 100) {
+            autoAdvanceTimer = setTimeout(() => {
+                nextExercise();
+            }, 1000); 
+        }
+    };
+}
+
+function downloadCert() {
+    if (hasDownloadedCert) return; 
+
+    const studentNameInput = document.getElementById('studentName');
+    const studentName = studentNameInput ? studentNameInput.value.trim() : "";
+    
+    if (studentName === "") {
+        alert("Vinsamlegast skrifaðu nafnið þitt fyrst!");
+        return;
+    }
+
+    const canvas = document.createElement('canvas');
+    canvas.width = 900;
+    canvas.height = 600;
+    const ctx = canvas.getContext('2d');
+    
+    ctx.fillStyle = '#ffffff';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    
+    ctx.strokeStyle = '#1a73e8';
+    ctx.lineWidth = 15;
+    ctx.strokeRect(20, 20, canvas.width - 40, canvas.height - 40);
+
+    ctx.strokeStyle = '#fbbc05';
+    ctx.lineWidth = 5;
+    ctx.strokeRect(40, 40, canvas.width - 80, canvas.height - 80);
+    
+    ctx.fillStyle = '#1a73e8';
+    ctx.textAlign = 'center';
+    ctx.font = 'bold 50px Arial';
+    ctx.fillText('Viðurkenning', canvas.width / 2, 140);
+    
+    ctx.fillStyle = '#333333';
+    ctx.font = '24px Arial';
+    ctx.fillText('Þetta skjal staðfestir að', canvas.width / 2, 220);
+    
+    ctx.fillStyle = '#000000';
+    ctx.font = 'bold 45px Arial';
+    ctx.fillText(studentName, canvas.width / 2, 290);
+    
+    ctx.fillStyle = '#333333';
+    ctx.font = '24px Arial';
+    ctx.fillText('hefur lokið æfingunni með glæsibrag:', canvas.width / 2, 360);
+
+    ctx.fillStyle = '#1a73e8';
+    ctx.font = 'bold 26px Arial';
+    ctx.fillText('Markorð: 161 - 170 algengustu í íslenskum námsbókum', canvas.width / 2, 420);
+    
+    ctx.fillStyle = '#34a853';
+    ctx.font = 'italic 28px Arial';
+    ctx.fillText('Frábær árangur! Haltu áfram að æfa þig.', canvas.width / 2, 490);
+
+    const dateString = new Date().toLocaleDateString('is-IS');
+    ctx.fillStyle = '#666666';
+    ctx.font = '18px Arial';
+    ctx.fillText('Dagsetning: ' + dateString, canvas.width / 2, 540);
+    
+    const link = document.createElement('a');
+    link.download = `Vidurkenning_${studentName.replace(/\s+/g, '_')}.png`;
+    link.href = canvas.toDataURL('image/png');
+    link.click();
+    
+    hasDownloadedCert = true;
+    const btn = document.getElementById('cert-btn');
+    if (btn) {
+        btn.disabled = true;
+        btn.innerText = "✅ Skjal sótt";
+        btn.style.backgroundColor = "#5f6368";
+        btn.style.cursor = "not-allowed";
+        btn.style.opacity = "0.7";
+    }
+    if (studentNameInput) {
+        studentNameInput.disabled = true;
+    }
+}
+</script>
+
+</body>
+</html>
